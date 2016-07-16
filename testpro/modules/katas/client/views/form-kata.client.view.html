@@ -1,0 +1,65 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.kata._id ? 'Edit Kata' : 'New Kata'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.kataForm" class="form-horizontal" ng-submit="vm.save(vm.form.kataForm.$valid)" novalidate>
+      <fieldset>
+      <!-- Kata -->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="kata">Kata</label>
+          <input name="kata" type="text" ng-model="vm.kata.kata" id="kata" class="form-control" placeholder="Kata" required>
+          <div ng-messages="vm.form.kataForm.kata.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Kata name is required.</p>
+          </div>
+        </div>
+      <!-- Kata -->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="summary">Summary</label>
+          <input name="summary" type="text" ng-model="vm.kata.summary" id="summary" class="form-control" placeholder="Summary" required>
+          <div ng-messages="vm.form.kataForm.summary.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Summary is required.</p>
+          </div>
+        </div>
+      <!-- Belt -->
+        <!-- {{vm.beltsList}} -->
+        <div class="form-group" show-errors>          
+          <label class="control-label" for="belt">Belt</label>          
+          <select name="belt" ng-model="vm.kata.belt" id="belt" class="form-control" placeholder="Select Belt" required>
+            <option disabled selected value="">Select Belt</option>
+            <option ng-repeat="belt in vm.beltsList" value="{{ belt._id }}">{{ belt.name }}</option>
+          </select>
+          <div ng-messages="vm.form.kataForm.belt.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Belt is required.</p>
+          </div>
+        </div>
+      <!-- File Uploads -->
+        <div class="form-group text-center">
+          <img ng-src="{{imageURL}}" alt="{{vm.sdtechnique.user.displayName}}" class="img-thumbnail">
+        </div>
+        <div class="text-center form-group" ng-hide="uploader.queue.length">
+          <span class="btn btn-default btn-file">
+              Select Multimedia Files <input type="file" nv-file-select uploader="uploader" multiple="true">
+          </span>
+        </div>
+        <div class="text-center form-group" ng-show="uploader.queue.length">
+          <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
+          <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button>
+        </div>
+        <div ng-show="success" class="text-center text-success">
+          <strong>Profile Picture Changed Successfully</strong>
+        </div>
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.kata._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Katas</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="kata in vm.katas"
+       data-ui-sref="katas.view({ kataId: kata._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="kata.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="kata.user" data-ng-bind="kata.user.displayName"></span>
+        <span data-ng-if="!kata.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="kata.kata"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.katas.$resolved && !vm.katas.length">
+    No Katas yet, why don't you <a data-ui-sref="katas.create">create one</a>?
+  </div>
+</section>

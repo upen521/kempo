@@ -1,0 +1,73 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.sdtechnique._id ? 'Edit Self Defense Technique' : 'New Self Defense Techniques'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.sdtechniqueForm" class="form-horizontal" ng-submit="vm.save(vm.form.sdtechniqueForm.$valid)" novalidate>
+      <fieldset>
+        <!-- Technique -->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="technique">Technique</label>
+          <input name="technique" type="text" ng-model="vm.sdtechnique.technique" id="technique" class="form-control" placeholder="Technique Name" required>
+          <div ng-messages="vm.form.sdtechniqueForm.technique.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Self defense technique name is required.</p>
+          </div>
+        </div>
+        <!-- Belt -->
+        <!-- {{vm.beltsList}} -->
+        <div class="form-group" show-errors>          
+          <label class="control-label" for="belt">Belt</label>          
+          <select name="belt" ng-model="vm.sdtechnique.belt" id="belt" class="form-control" placeholder="Select Belt" required>
+            <option disabled selected value="">Select Belt</option>
+            <option ng-repeat="belt in vm.beltsList" value="{{ belt._id }}">{{ belt.name }}</option>
+          </select>
+          <div ng-messages="vm.form.sdtechniqueForm.belt.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Belt is required.</p>
+          </div>
+        </div>
+        <!-- Attack -->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="attack">Attack</label>
+          <input name="attack" type="text" ng-model="vm.sdtechnique.attack" id="attack" class="form-control" placeholder="Attack Name" required>
+          <div ng-messages="vm.form.sdtechniqueForm.attack.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Attack name is required.</p>
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description">Description</label>
+          <input name="description" type="text" ng-model="vm.sdtechnique.description" id="description" class="form-control" placeholder="Descriptions" required>
+          <div ng-messages="vm.form.sdtechniqueForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Description is required.</p>
+          </div>
+        </div>
+        <!-- File Uploads -->
+        <div class="form-group text-center">
+          <img ng-src="{{imageURL}}" alt="{{vm.sdtechnique.user.displayName}}" class="img-thumbnail">
+        </div>
+        <div class="text-center form-group" ng-hide="uploader.queue.length">
+          <span class="btn btn-default btn-file">
+              Select Multimedia Files <input type="file" nv-file-select uploader="uploader" multiple="true">
+          </span>
+        </div>
+        <div class="text-center form-group" ng-show="uploader.queue.length">
+          <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
+          <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button>
+        </div>
+        <!-- <div ng-show="success" class="text-center text-success">
+          <strong>Profile Picture Changed Successfully</strong>
+        </div> -->
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.sdtechnique._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
